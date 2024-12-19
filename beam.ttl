@@ -3,14 +3,6 @@
 @prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
 @prefix beam: <https://tor.scot/ns/beam#> .
 
-# BEAM languages: Erlang, LFE, Elixir, Erlang, Gleam, liffy
-# BEAM data types: numbers, atoms, functions, compound types
-# BEAM nodes: instances of the BEAM, running on an OS
-# OTP application: a project which runs on the BEAM, written in a language
-# OTP processes: like operating system processes, but better
-# OTP behaviours: gen_server, gen_stage, gen_fsm
-# OTP activities: application invocation, process invocation, supervision
-
 # Approximate OTP process architecture (excluding behaviours and supervisors
 # for now):
 beam:Node a rdfs:Class;
