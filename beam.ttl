@@ -1,0 +1,107 @@
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rdf:  <https://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix beam: <https://tor.scot/ns/beam#> .
+
+# BEAM languages: Erlang, LFE, Elixir, Erlang, Gleam, liffy
+# BEAM data types: numbers, atoms, functions, compound types
+# BEAM nodes: instances of the BEAM, running on an OS
+# OTP application: a project which runs on the BEAM, written in a language
+# OTP processes: like operating system processes, but better
+# OTP behaviours: gen_server, gen_stage, gen_fsm
+# OTP activities: application invocation, process invocation, supervision
+
+# Approximate OTP process architecture (excluding behaviours and supervisors
+# for now):
+beam:Node a rdfs:Class;
+    rdfs:label "BEAM node" ;
+    rdfs:isDefinedBy <https://tor.scot/ns/beam> .
+beam:Process a rdfs:Class ;
+    rdfs:label "BEAM process" ;
+    rdfs:isDefinedBy <https://tor.scot/ns/beam> .    
+beam:Computation a rdfs:Class ;
+    rdfs:label "BEAM computation" ;
+    rdfs:isDefinedBy <https://tor.scot/ns/beam> .
+beam:Production a rdfs:Class ;
+    rdfs:label "BEAM production" ;
+    rdfs:isDefinedBy <https://tor.scot/ns/beam> .
+beam:Application a rdfs:Class ;
+    rdfs:label "OTP application" ;
+    rdfs:isDefinedBy <https://tor.scot/ns/beam> .
+
+# BEAM machine datatypes not included in XSD
+# There are compound data types we omit from this demo ontology.
+# These are all represented either as string or as number.
+# BitString is a special case, let's just pretend it's a string like Elixir for now.
+beam:Datatype a rdfs:Class ;
+    rdfs:label "BEAM data-types" ;
+    rdfs:isDefinedBy <https://tor.scot/ns/beam> .
+    
+beam:Integer a xsd:integer ;
+    rdfs:subClassOf beam:Datatype ;
+    rdfs:isDefinedBy <https://tor.scot/ns/beam> .
+beam:Float   a xsd:float ;
+    rdfs:subClassOf beam:Datatype ;
+    rdfs:isDefinedBy <https://tor.scot/ns/beam> .
+beam:BitString a xsd:string ;
+    rdfs:subClassOf beam:Datatype ;
+    rdfs:isDefinedBy <https://tor.scot/ns/beam> .
+beam:Atom a rdfs:Datatype ;
+    rdfs:subClassOf beam:Datatype ;
+    rdfs:isDefinedBy <https://tor.scot/ns/beam> .
+beam:Func a rdfs:Datatype ;
+    rdfs:subClassOf beam:Datatype ;
+    rdfs:isDefinedBy <https://tor.scot/ns/beam> .
+beam:Ref a rdfs:Datatype ;
+    rdfs:subClassOf beam:Datatype ;
+    rdfs:isDefinedBy <https://tor.scot/ns/beam> .
+beam:Port a rdfs:Datatype ;
+    rdfs:subClassOf beam:Datatype ;
+    rdfs:isDefinedBy <https://tor.scot/ns/beam> .
+beam:PID a rdfs:Datatype ;
+    rdfs:subClassOf beam:Datatype ;
+    rdfs:isDefinedBy <https://tor.scot/ns/beam> .
+
+# Relations between OTP components
+beam:discovers a rdf:Property ;
+    rdfs:domain beam:Node ;
+    rdfs:range  beam:Node ;
+    rdfs:label "BEAM node A discovers node B" ;
+    rdfs:isDefinedBy <https://tor.scot/ns/beam> .
+
+beam:invokesApplication a rdf:Property ;
+    rdfs:domain beam:Node ;
+    rdfs:range  beam:Application ;
+    rdfs:label "BEAM node invokes OTP application" ;
+    rdfs:isDefinedBy <https://tor.scot/ns/beam> .
+    
+beam:invokesProcess a rdf:Property ;
+    rdfs:domain beam:Node ;
+    rdfs:range  beam:Process ;
+    rdfs:label "BEAM node invokes BEAM process" ;
+    rdfs:isDefinedBy <https://tor.scot/ns/beam> .
+
+beam:nodeVersion a rdf:Property ;
+    rdfs:domain beam:Node ;
+    rdfs:range  xsd:string ;
+    rdfs:label "BEAM node OTP version number" ;
+    rdfs:isDefinedBy <https://tor.scot/ns/beam> .
+
+beam:nodeHostName a rdf:Property ;
+    rdfs:domain beam:Node ;
+    rdfs:range  xsd:string ;
+    rdfs:label "BEAM node " ;
+    rdfs:isDefinedBy <https://tor.scot/ns/beam> .
+
+beam:processHadPID a rdf:Property ;
+    rdfs:domain beam:Process ;
+    rdfs:range  beam:PID ;
+    rdfs:label "BEAM process has identifier (PID)" ;
+    rdfs:isDefinedBy <https://tor.scot/ns/beam> .
+
+beam:targetDataType a rdf:Property ;
+    rdfs:domain beam:Production ;
+    rdfs:range beam:DataType ;
+    rdfs:label "BEAM production is data of type" ;
+    rdfs:isDefinedBy <https://tor.scot/ns/beam> .
+
