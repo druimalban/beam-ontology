@@ -1,5 +1,4 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix rdf:  <https://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
 @prefix beam: <https://tor.scot/ns/beam#> .
 
@@ -30,27 +29,35 @@ beam:Datatype a rdfs:Class ;
     rdfs:isDefinedBy <https://tor.scot/ns/beam> .
     
 beam:Integer a xsd:integer ;
+    rdfs:label "BEAM integer data-type" ;
     rdfs:subClassOf beam:Datatype ;
     rdfs:isDefinedBy <https://tor.scot/ns/beam> .
 beam:Float   a xsd:float ;
+    rdfs:label "BEAM floating point number data-type" ;
     rdfs:subClassOf beam:Datatype ;
     rdfs:isDefinedBy <https://tor.scot/ns/beam> .
 beam:BitString a xsd:string ;
+    rdfs:label "BEAM bit-string data-type: equivalent to XSD strings but actually a list of code-points" ;
     rdfs:subClassOf beam:Datatype ;
     rdfs:isDefinedBy <https://tor.scot/ns/beam> .
 beam:Atom a rdfs:Datatype ;
+    rdfs:label "BEAM atom data-type" ;
     rdfs:subClassOf beam:Datatype ;
     rdfs:isDefinedBy <https://tor.scot/ns/beam> .
 beam:Func a rdfs:Datatype ;
+    rdfs:label "BEAM function data-type" ;
     rdfs:subClassOf beam:Datatype ;
     rdfs:isDefinedBy <https://tor.scot/ns/beam> .
 beam:Ref a rdfs:Datatype ;
+    rdfs:label "BEAM reference data-type: unique amongst connected nodes" ;
     rdfs:subClassOf beam:Datatype ;
     rdfs:isDefinedBy <https://tor.scot/ns/beam> .
 beam:Port a rdfs:Datatype ;
+    rdfs:label "BEAM network port data-type" ;
     rdfs:subClassOf beam:Datatype ;
     rdfs:isDefinedBy <https://tor.scot/ns/beam> .
 beam:PID a rdfs:Datatype ;
+    rdfs:label "BEAM process identifier data-type" ;
     rdfs:subClassOf beam:Datatype ;
     rdfs:isDefinedBy <https://tor.scot/ns/beam> .
 
@@ -82,7 +89,7 @@ beam:nodeVersion a rdf:Property ;
 beam:nodeHostName a rdf:Property ;
     rdfs:domain beam:Node ;
     rdfs:range  xsd:string ;
-    rdfs:label "BEAM node " ;
+    rdfs:label "BEAM node has host-name" ;
     rdfs:isDefinedBy <https://tor.scot/ns/beam> .
 
 beam:processHadPID a rdf:Property ;
@@ -94,6 +101,6 @@ beam:processHadPID a rdf:Property ;
 beam:targetDataType a rdf:Property ;
     rdfs:domain beam:Production ;
     rdfs:range beam:DataType ;
-    rdfs:label "BEAM production is data of type" ;
+    rdfs:label "BEAM process returned data of type" ;
     rdfs:isDefinedBy <https://tor.scot/ns/beam> .
 
