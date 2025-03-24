@@ -31,11 +31,17 @@ beam:Datatype a rdfs:Class ;
     
 beam:Integer a xsd:integer ;
     rdfs:label "BEAM integer data-type" ;
+    rdfs:label "BEAM entier"@fr ;
+    rdfs:comment "This is filled out a bit more than the other fields, to test pretty-printing" ;
     rdfs:subClassOf beam:Datatype ;
+    rdfs:subClassOf rdfs:Class ;
+    beam:expressible_as beam:Float ;
     rdfs:isDefinedBy <https://tor.scot/ns/beam> .
 beam:Float   a xsd:float ;
     rdfs:label "BEAM floating point number data-type" ;
+    rdfs:label "BEAM nombre à virgule flottante"@fr ;
     rdfs:subClassOf beam:Datatype ;
+    rdfs:subClassOf rdfs:Class ;
     rdfs:isDefinedBy <https://tor.scot/ns/beam> .
 beam:BitString a xsd:string ;
     rdfs:label "BEAM bit-string data-type: equivalent to XSD strings but actually a list of code-points" ;
@@ -60,6 +66,12 @@ beam:Port a rdfs:Datatype ;
 beam:PID a rdfs:Datatype ;
     rdfs:label "BEAM process identifier data-type" ;
     rdfs:subClassOf beam:Datatype ;
+    rdfs:isDefinedBy <https://tor.scot/ns/beam> .
+
+beam:expressible_as a rdf:Property ;
+    rdfs:domain beam:DataType ;
+    rdfs:range  beam:DataType ;
+    rdfs:label "Beam datatype can be converted losslessly to other datatype" ;
     rdfs:isDefinedBy <https://tor.scot/ns/beam> .
 
 # Relations between OTP components
