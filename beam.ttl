@@ -1,23 +1,34 @@
-@prefix rdf: <https://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
 @prefix beam: <https://tor.scot/ns/beam#> .
 
+beam:AbstractThing a rdfs:Class ;
+    rdfs:label "super-class of abstract components of OTP and the BEAM" ;
+    rdfs:comment "Notional super-class of everything on the BEAM, and some bits of OTP. The idea is to capture the intersection of the register machine and the layers like OTP on top, since there is something special about things which form the ecosystem." ;
+    beam:from_minimum beam:MinimumOTP ;
+    rdfs:isDefinedBy <https://tor.scot/ns/beam> .
+
 # Approximate OTP process architecture (excluding behaviours and supervisors
 # for now):
 beam:Node a rdfs:Class;
+    rdfs:subClassOf beam:AbstractThing ;
     rdfs:label "BEAM node" ;
     rdfs:isDefinedBy <https://tor.scot/ns/beam> .
 beam:Process a rdfs:Class ;
+    rdfs:subClassOf beam:AbstractThing ;
     rdfs:label "BEAM process" ;
     rdfs:isDefinedBy <https://tor.scot/ns/beam> .    
 beam:Computation a rdfs:Class ;
+    rdfs:subClassOf beam:AbstractThing ;
     rdfs:label "BEAM computation" ;
     rdfs:isDefinedBy <https://tor.scot/ns/beam> .
 beam:Production a rdfs:Class ;
+    rdfs:subClassOf beam:AbstractThing ;
     rdfs:label "BEAM production" ;
     rdfs:isDefinedBy <https://tor.scot/ns/beam> .
 beam:Application a rdfs:Class ;
+    rdfs:subClassOf beam:AbstractThing ;
     rdfs:label "OTP application" ;
     rdfs:isDefinedBy <https://tor.scot/ns/beam> .
 
@@ -27,8 +38,15 @@ beam:Application a rdfs:Class ;
 # BitString is a special case, let's just pretend it's a string like Elixir for now.
 beam:Datatype a rdfs:Class ;
     rdfs:label "BEAM data-types" ;
+    rdfs:subClassOf beam:AbstractThing ;
     rdfs:isDefinedBy <https://tor.scot/ns/beam> .
-    
+
+beam:MinimumOTP a rdfs:Class ;
+    rdfs:label "minimum OTP version described here" ;
+    rdfs:comment "Define a notional minimum OTP version which this ontology describes. This is just the latest Erlang package in Debian stable (12) at the time of writing. This is explicitly described because it's useful to test looking at the RDF 'value' of the opaque IRI used effectively to stand in for that value." ;
+    rdf:value "25"^^xsd:integer ;
+    rdfs:isDefinedBy <https://tor.scot/ns/beam> .
+
 beam:Integer a xsd:integer ;
     rdfs:label "BEAM integer data-type" ;
     rdfs:label "BEAM entier"@fr ;
@@ -36,12 +54,14 @@ beam:Integer a xsd:integer ;
     rdfs:subClassOf beam:Datatype ;
     rdfs:subClassOf rdfs:Class ;
     beam:expressible_as beam:Float ;
+    beam:from_minimum beam:MinimumOTP ;
     rdfs:isDefinedBy <https://tor.scot/ns/beam> .
 beam:Float   a xsd:float ;
     rdfs:label "BEAM floating point number data-type" ;
     rdfs:label "BEAM nombre à virgule flottante"@fr ;
     rdfs:subClassOf beam:Datatype ;
     rdfs:subClassOf rdfs:Class ;
+    beam:from_minimum beam:MinimumOTP ;
     rdfs:isDefinedBy <https://tor.scot/ns/beam> .
 beam:BitString a xsd:string ;
     rdfs:label "BEAM bit-string data-type: equivalent to XSD strings but actually a list of code-points" ;
@@ -73,6 +93,10 @@ beam:expressible_as a rdf:Property ;
     rdfs:range  beam:DataType ;
     rdfs:label "Beam datatype can be converted losslessly to other datatype" ;
     rdfs:isDefinedBy <https://tor.scot/ns/beam> .
+
+beam:from_minimum a rdf:Property ;
+    rdfs:domain beam:DataType ;
+    rdfs:range  rdfs:Class .
 
 # Relations between OTP components
 beam:discovers a rdf:Property ;
